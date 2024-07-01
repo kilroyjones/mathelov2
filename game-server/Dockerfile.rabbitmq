@@ -1,0 +1,10 @@
+FROM rabbitmq:3-management
+
+# Copy the delayed message exchange plugin
+COPY plugins/*.ez /plugins/
+
+# Enable the delayed message exchange plugin
+RUN rabbitmq-plugins enable --offline rabbitmq_delayed_message_exchange
+
+# Set the plugins directory
+ENV RABBITMQ_PLUGINS_DIR="/plugins"
