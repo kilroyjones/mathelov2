@@ -16,6 +16,7 @@ import { env } from '$env/dynamic/private';
 export const GET: RequestHandler = async ({ locals, url, cookies }) => {
 	const provider = JSON.parse(cookies.get('provider') || '{}');
 
+	console.log('provider', provider);
 	if (provider.state !== url.searchParams.get('state')) {
 		throw new Error("State parameters don't match");
 	}
@@ -51,6 +52,7 @@ export const GET: RequestHandler = async ({ locals, url, cookies }) => {
 			throw error;
 		}
 	} catch (error) {
+		console.log(error);
 		return redirect(302, '/errors');
 	}
 

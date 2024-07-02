@@ -1,5 +1,5 @@
 // Modules
-import { env } from '$env/dynamic/private';
+import { PUBLIC_REDIRECT_URL } from '$env/static/public';
 import { fail, redirect } from '@sveltejs/kit';
 
 // Types and constants
@@ -16,14 +16,19 @@ export const load: PageServerLoad = async ({ locals }) => {
 		return redirect(302, '/');
 	}
 
-	const authMethods: AuthMethodsList = await locals.pocketbase
-		.collection('users')
-		.listAuthMethods();
-
-	if (authMethods.authProviders.length == 0) {
+	console.log(locals.pocketbase);
+	try {
+		const authMethods: AuthMethodsList = await locals.pocketbase
+			.collection('users')
+			.listAuthMethods();
+		if (authMethods.authProviders.length == 0) {
+			return { err: true, data: [] };
+		}
+		return { err: false, data: authMethods.authProviders };
+	} catch (error: any) {
+		console.error('[Register:load] - Error getting auth method list');
 		return { err: true, data: [] };
 	}
-	return { err: false, data: authMethods.authProviders };
 };
 
 /**
@@ -43,6 +48,7 @@ export const actions = {
 			 * the ErrorRegisterUser type which is used on the form to provide
 			 * validation information in case of errors.
 			 **/
+			console.log('sadfasdf', err);
 			const errorDetails: ErrorDetails = err.response;
 			const errors: ErrorRegisterUser = Object.entries(errorDetails.data).reduce<FormErrors>(
 				(acc, [key, { message }]) => {
@@ -77,7 +83,7 @@ export const actions = {
 		});
 
 		if (provider) {
-			throw redirect(302, provider?.authUrl + env.REDIRECT_URL + provider?.name);
+			throw redirect(302, provider?.authUrl + PUBLIC_REDIRECT_URL + provider?.name);
 		}
 	}
 } satisfies Actions;

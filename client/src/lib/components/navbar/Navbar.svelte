@@ -8,7 +8,7 @@
 	import { user } from '$lib/stores/user.store';
 </script>
 
-<div class="navbar">
+<div class="navbar bg-base-300">
 	<div class="flex-1">
 		<a href="/" class="text-xl btn btn-ghost">Template</a>
 		<div class="flex-none">

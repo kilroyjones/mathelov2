@@ -1,13 +1,8 @@
-## Sveltekit and Pocketbase template
+## MathElo
 
-This is a template I created as a basis for a few of my own projects. It uses the latest stable version of SvelteKit (Svelte 4, but I plan to update to Svelte 5 when it is fully released), Pocketbase and Tailwind with DaisyUI.
+### Needs implement
 
-Current features:
-
-- [x] Register via email
-- [x] Register via Google
-- [x] Light and dark mode toggle
-- [x] Uploading an avatar
+- [ ] - Fix profile image so it defaults to an image in the static folder
 
 ### Setup the backend
 

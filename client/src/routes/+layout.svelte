@@ -1,7 +1,6 @@
 <script lang="ts">
+	// Libraries and modules
 	import '../app.css';
-
-	// Modules
 	import { user } from '$lib/stores/user.store';
 
 	// Components
@@ -15,7 +14,5 @@
 	$: $user = data.user;
 </script>
 
-<div class="bg-base-300">
-	<Navbar></Navbar>
-	<slot />
-</div>
+<Navbar></Navbar>
+<slot />

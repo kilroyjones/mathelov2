@@ -1,0 +1,80 @@
+services:
+  node-server:
+    build:
+      context: ./backend/server
+      dockerfile: ./Dockerfile.server
+    container_name: node-server
+    working_dir: /usr/src/app
+    volumes:
+      - ./backend/server:/usr/src/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - rabbitmq
+      - pocketbase
+    env_file:
+      - ./backend/server/.env
+    command: >
+      sh -c "npm install && npm run dev"
+    networks:
+      - mathelo
+
+  pocketbase:
+    build:
+      context: ./backend/pocketbase
+      dockerfile: ./Dockerfile.pocketbase
+    container_name: pocketbase
+    ports:
+      - "8090:8090"
+    volumes:
+      - pocketbase-data:/pb/pb_data
+    networks:
+      - mathelo
+
+  rabbitmq:
+    build:
+      context: .
+      dockerfile: ./backend/server/Dockerfile.rabbitmq
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
+      RABBITMQ_DEFAULT_USER: "user"
+      RABBITMQ_DEFAULT_PASS: "password"
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - mathelo
+
+  client:
+    build:
+      context: ./client
+      dockerfile: ./Dockerfile.client
+    container_name: sveltekit-client
+    volumes:
+      - ./client:/usr/src/app
+    ports:
+      - "5173:5173"
+    env_file:
+      - ./client/.env
+    command: >
+      sh -c "npm install && npm run dev"
+    networks:
+      - mathelo
+
+networks:
+  mathelo:
+    external: true
+
+volumes:
+  pocketbase-data:
+    driver: local
+  rabbitmq-data:
+    driver: local

@@ -9,12 +9,11 @@
 	// Types and constants
 	import type { ActionResult } from '@sveltejs/kit';
 	import type { ErrorRegisterUser } from '$lib/types';
-	import type { PageData } from './$types';
 
-	let username = 'a';
-	let email = 'ad@asdf';
-	let password = 'adsf';
-	let confirmPassword = 'asdfasdfasdf';
+	let username = 'abc';
+	let email = 'a@a.com';
+	let password = 'password1';
+	let confirmPassword = 'password1';
 	let errors: ErrorRegisterUser = {};
 
 	/**
