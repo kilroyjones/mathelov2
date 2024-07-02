@@ -1,4 +1,5 @@
 // Libraries and modules
+import Client from "pocketbase";
 import dotenv from "dotenv";
 import express from "express";
 import http from "http";
@@ -8,7 +9,7 @@ import { Server } from "socket.io";
 import { PocketBaseService } from "./service/pocketbase.service";
 
 // Types
-import type { RabbitMQConnection } from "./types/rabbitmq";
+import type { QueuedQuestion, RabbitMQConnection } from "./types/rabbitmq";
 import type { Message } from "./types/messages";
 
 // Load environment variables from .env file
@@ -25,6 +26,25 @@ const io = new Server(server, {
 
 /**
  *
+ * @param pocketbase
+ * @returns
+ */
+async function getQuestion(pocketbase: Client): Promise<{ type: string; msg: any } | undefined> {
+  if (pocketbase) {
+    try {
+      const records = await pocketbase.collection("questions").getFullList({});
+      if (records.length > 0) {
+        const randomIndex = Math.floor(Math.random() * records.length);
+        return { type: "get-question", msg: records[randomIndex] };
+      }
+    } catch (error: any) {
+      console.log("butter", error);
+    }
+  }
+}
+
+/**
+ *
  */
 async function initializeServer(): Promise<boolean> {
   try {
@@ -36,37 +56,31 @@ async function initializeServer(): Promise<boolean> {
       return false;
     }
 
+    if (pocketbase == undefined) {
+      console.error("[index:setupServer] - Pocketbase not initialized");
+      return false;
+    }
+
     const rabbitChannel = rabbitMQConnection.channel;
     RabbitMQService.processQueue(rabbitChannel);
 
     io.on("connection", async socket => {
       console.log("a user connected");
 
-      //
+      const quesiton = getQuestion(pocketbase);
       socket.on("message", async (message: Message) => {
         const { type, msg } = message;
 
-        if (pocketbase) {
-          const records = await pocketbase.collection("users").getList();
-          const len = records.totalItems;
-          if (len > 0) {
-          }
-        }
-        if (pocketbase) {
-          try {
-            const records = await pocketbase.collection("questions").getFullList({});
-            if (records.length > 0) {
-              const randomIndex = Math.floor(Math.random() * records.length);
-              console.log("EMIT");
-              socket.emit("message", records[randomIndex]);
-            }
-          } catch (error: any) {
-            console.log("butter", error);
-          }
-        }
+        let payload: any | undefined;
 
-        if (rabbitChannel) {
-          await RabbitMQService.queueMessage(rabbitChannel, "sdf", 2000);
+        switch (type) {
+          case "get-question":
+            payload = await getQuestion(pocketbase);
+            if (payload && rabbitChannel) {
+              socket.emit("message", payload);
+              const queuedQuestion: QueuedQuestion = { userId: "1234", questionId: payload.msg.id };
+              await RabbitMQService.queueMessage(rabbitChannel, payload.msg.time, queuedQuestion);
+            }
         }
       });
 

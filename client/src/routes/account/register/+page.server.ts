@@ -16,7 +16,6 @@ export const load: PageServerLoad = async ({ locals }) => {
 		return redirect(302, '/');
 	}
 
-	console.log(locals.pocketbase);
 	try {
 		const authMethods: AuthMethodsList = await locals.pocketbase
 			.collection('users')
@@ -48,7 +47,6 @@ export const actions = {
 			 * the ErrorRegisterUser type which is used on the form to provide
 			 * validation information in case of errors.
 			 **/
-			console.log('sadfasdf', err);
 			const errorDetails: ErrorDetails = err.response;
 			const errors: ErrorRegisterUser = Object.entries(errorDetails.data).reduce<FormErrors>(
 				(acc, [key, { message }]) => {

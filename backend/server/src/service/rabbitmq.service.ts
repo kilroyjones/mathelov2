@@ -3,7 +3,7 @@ import amqp from "amqplib";
 import { Channel } from "amqplib";
 
 // Types
-import type { RabbitMQConnection } from "../types/rabbitmq";
+import type { QueuedQuestion, RabbitMQConnection } from "../types/rabbitmq";
 
 const QUEUE_NAME: string | undefined = process.env.RABBITMQ_QUEUE;
 const QUEUE_URL: string | undefined = process.env.RABBITMQ_URL;
@@ -60,8 +60,12 @@ async function start(): Promise<RabbitMQConnection | undefined> {
  * @param delay
  * @returns
  */
-async function queueMessage(channel: Channel, id: string, delay: number): Promise<boolean> {
-  const message = { id, timestamp: Date.now() + delay };
+async function queueMessage(
+  channel: Channel,
+  delay: number,
+  queuedQuestion: QueuedQuestion
+): Promise<boolean> {
+  const message = { queuedQuestion, timestamp: Date.now() + delay };
   if (QUEUE_NAME) {
     return channel.publish("delayed_exchange", QUEUE_NAME, Buffer.from(JSON.stringify(message)), {
       headers: { "x-delay": delay },
