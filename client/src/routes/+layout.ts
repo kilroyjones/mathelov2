@@ -2,7 +2,7 @@
 export const ssr = false;
 
 // Modules
-import { pocketbase } from '$lib/db/client';
+import { pocketbase } from '$lib/services/pocketbase.service';
 
 // Types and constants
 import type { LayoutLoad } from './$types';

@@ -12,28 +12,43 @@ export interface Question {
 	time: number;
 }
 
-export const playState = writable<PlayState>(PlayState.Waiting);
-export const currentQuestion = writable<Question | null>(null);
-
-/**
- *
- * @param state
- */
-export function setPlayState(state: PlayState) {
-	playState.set(state);
+export interface PlayStore {
+	playState: PlayState;
+	currentQuestion: Question | null;
+	setPlayState: (state: PlayState) => void;
+	setCurrentQuestion: (question: Question) => void;
+	resetCurrentQuestion: () => void;
 }
 
-/**
- *
- * @param question
- */
-export function setCurrentQuestion(question: Question) {
-	currentQuestion.set(question);
+const initialState: Omit<
+	PlayStore,
+	'setPlayState' | 'setCurrentQuestion' | 'resetCurrentQuestion'
+> = {
+	playState: PlayState.Waiting,
+	currentQuestion: null
+};
+
+function createPlayStore() {
+	const { subscribe, update } = writable(initialState);
+
+	return {
+		subscribe,
+		setPlayState: (state: PlayState) => {
+			update((store) => {
+				return { ...store, playState: state };
+			});
+		},
+		setCurrentQuestion: (question: Question) => {
+			update((store) => {
+				return { ...store, currentQuestion: question };
+			});
+		},
+		resetCurrentQuestion: () => {
+			update((store) => {
+				return { ...store, currentQuestion: null };
+			});
+		}
+	};
 }
 
-/**
- *
- */
-export function resetCurrentQuestion() {
-	currentQuestion.set(null);
-}
+export const playStore = createPlayStore();

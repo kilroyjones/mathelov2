@@ -1,9 +1,9 @@
 services:
-  node-server:
+  server:
     build:
       context: ./backend/server
       dockerfile: ./Dockerfile.server
-    container_name: node-server
+    container_name: server
     working_dir: /usr/src/app
     volumes:
       - ./backend/server:/usr/src/app
@@ -57,7 +57,7 @@ services:
     build:
       context: ./client
       dockerfile: ./Dockerfile.client
-    container_name: sveltekit-client
+    container_name: client
     volumes:
       - ./client:/usr/src/app
     ports:

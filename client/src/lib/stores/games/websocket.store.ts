@@ -56,6 +56,7 @@ const createSocketStore = (url: string): SocketStore => {
 	function sendMessage(event: string, data: any) {
 		update((socket) => {
 			if (socket) {
+				console.log(event, data);
 				socket.emit(event, data);
 			}
 			return socket;
