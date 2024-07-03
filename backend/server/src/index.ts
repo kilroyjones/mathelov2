@@ -10,7 +10,7 @@ import { PocketBaseService } from "./service/pocketbase.service";
 
 // Types
 import type { QueuedQuestion, RabbitMQConnection } from "./types/rabbitmq";
-import type { Message } from "./types/messages";
+import type { Answer, Message } from "./types/messages";
 
 // Load environment variables from .env file
 dotenv.config();
@@ -43,6 +43,11 @@ async function getQuestion(pocketbase: Client): Promise<{ type: string; msg: any
   }
 }
 
+async function answerQuestion(pocketbase: Client, answer: Answer) {
+  if (pocketbase) {
+  }
+}
+
 /**
  *
  */
@@ -65,11 +70,12 @@ async function initializeServer(): Promise<boolean> {
     RabbitMQService.processQueue(rabbitChannel);
 
     io.on("connection", async socket => {
-      console.log("a user connected");
+      const question = getQuestion(pocketbase);
 
-      const quesiton = getQuestion(pocketbase);
+      console.log("connected");
       socket.on("message", async (message: Message) => {
-        const { type, msg } = message;
+        const { type, data } = message;
+        console.log(type, data);
 
         let payload: any | undefined;
 
@@ -81,6 +87,10 @@ async function initializeServer(): Promise<boolean> {
               const queuedQuestion: QueuedQuestion = { userId: "1234", questionId: payload.msg.id };
               await RabbitMQService.queueMessage(rabbitChannel, payload.msg.time, queuedQuestion);
             }
+            break;
+
+          case "answer-question":
+            console.log(type, data);
         }
       });
 

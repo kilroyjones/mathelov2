@@ -1,4 +1,8 @@
 export type Message = {
   type: string;
-  msg: string;
+  data: any;
+};
+
+export type Answer = {
+  answer: string;
 };

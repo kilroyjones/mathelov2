@@ -3,6 +3,8 @@ import Pocketbase from "pocketbase";
 let pocketbase: Pocketbase | undefined = undefined;
 
 const PUBLIC_DATABASE_URL: string | undefined = process.env.PUBLIC_DATABASE_URL;
+const PRIVATE_DATABASE_USERNAME: string | undefined = process.env.PRIVATE_DATABASE_USERNAME;
+const PRIVATE_DATABASE_PASSWORD: string | undefined = process.env.PRIVATE_DATABASE_PASSWORD;
 
 /**
  *
@@ -26,6 +28,13 @@ async function initializePocketbase() {
     success = false;
   }
   pocketbase = new Pocketbase(PUBLIC_DATABASE_URL);
+  pocketbase.autoCancellation(false);
+
+  if (PRIVATE_DATABASE_USERNAME && PRIVATE_DATABASE_PASSWORD) {
+    await pocketbase.admins.authWithPassword(PRIVATE_DATABASE_USERNAME, PRIVATE_DATABASE_PASSWORD, {
+      autoRefreshThreshold: 30 * 60,
+    });
+  }
   return success;
 }
 
