@@ -6,9 +6,11 @@
 
 	// Types and variables
 	import { user } from '$lib/stores/user.store';
+
+	export let inGame: boolean = false;
 </script>
 
-<div class="navbar bg-base-300">
+<div class="navbar bg-base-300 {inGame ? 'fixed' : ''}">
 	<div class="flex-1">
 		<a href="/" class="text-xl btn btn-ghost">Template</a>
 		<div class="flex-none">

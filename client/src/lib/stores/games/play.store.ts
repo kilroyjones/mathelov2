@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 
 export enum PlayState {
-	Answering = 'answering',
+	Playing = 'playing',
 	Waiting = 'waiting',
 	Error = 'error'
 }

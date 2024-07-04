@@ -3,6 +3,7 @@ export type Message = {
 	data: string;
 };
 
-export type AnswerQuestion = {
-	answer: strings;
+export type Question = {
+	question: strings;
+	time: number;
 };
