@@ -1,0 +1,2 @@
+Find the derivative of the function: 
+\[ f'(x) = \frac{d}{dx}(3x^3 - 5x + 2) \]

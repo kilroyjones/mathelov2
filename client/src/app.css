@@ -12,10 +12,10 @@
 	}
 
 	.std-input-field {
-		@apply w-full px-4 py-2 border rounded-md;
+		@apply w-full px-4 py-2 border rounded-md input;
 	}
 
 	.std-input-button {
-		@apply rounded-md btn focus:outline-none btn-primary;
+		@apply rounded-md input btn focus:outline-none btn-primary;
 	}
 }

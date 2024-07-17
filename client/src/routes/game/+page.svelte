@@ -11,18 +11,19 @@
 	// Variables
 	import { playStore, PlayState } from '$lib/stores/games/play.store';
 	import { socketStore } from '$lib/stores/games/websocket.store';
+	import Waiting from '$lib/components/game/Waiting.svelte';
+
+	const focus = (element: HTMLInputElement) => element.focus();
 
 	// Question
-	let question: string;
+	let question: string = '8 + 2';
 	let timer: number;
-
 	let answer: string;
-	let answerInput: HTMLInputElement;
 
 	/**
 	 *
 	 */
-	function nextQuestion() {
+	function handleNextQuestion() {
 		socketStore.sendMessage('message', { type: 'get-question', data: {} });
 	}
 
@@ -90,16 +91,26 @@
 	});
 </script>
 
-<div class="flex justify-center h-full min-h-screen">
-	<div class="w-full grid lg:grid-cols-3 md:grid-cols-[1fr_2fr_1fr] sm:grid-cols-1">
+<div class="flex justify-center h-full min-h-screen p-4 rounded-lg md:p-2">
+	<div class="w-full grid lg:grid-cols-[2fr_3fr_2fr] md:grid-cols-[1fr_4fr_1fr] sm:grid-cols-1">
 		<div class="hidden p-4 sm:block"></div>
 		<div class="flex items-center justify-center">
-			{#if $playStore.playState == PlayState.Waiting}
-				<button class="btn" on:click={nextQuestion}> Next question</button>
-			{:else if $playStore.playState == PlayState.Playing}
-				<Playing {question} {timer} {handleKeyUp} {handleSubmit}></Playing>
-			{/if}
+			<Playing {question} {timer}></Playing>
 		</div>
 		<div class="hidden p-4 sm:block"></div>
+	</div>
+</div>
+
+<div class="fixed inset-x-0 bottom-0 p-4 shadow-inner bg-base-300">
+	<div class="flex items-center justify-center max-w-4xl mx-auto space-x-4">
+		<input
+			type="text"
+			class="flex-grow max-w-lg std-input-field focus:ring-2"
+			placeholder="Enter your text..."
+			bind:value={answer}
+			on:keyup={handleKeyUp}
+			use:focus
+		/>
+		<button class="px-6 py-2 std-input-button" on:click={handleSubmit}>Submit</button>
 	</div>
 </div>

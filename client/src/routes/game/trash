@@ -1,0 +1,14 @@
+
+<div class="flex justify-center h-full min-h-screen rounded-lg">
+	<div class="w-full grid lg:grid-cols-3 md:grid-cols-[1fr_2fr_1fr] sm:grid-cols-1">
+		<div class="hidden p-4 sm:block"></div>
+		<div class="flex items-center justify-center">
+			{#if $playStore.playState == PlayState.Waiting}
+				<Waiting {handleNextQuestion}></Waiting>
+			{:else if $playStore.playState == PlayState.Playing}
+				<Playing {question} {timer} {handleKeyUp} {handleSubmit}></Playing>
+			{/if}
+		</div>
+		<div class="hidden p-4 sm:block"></div>
+	</div>
+</div>
