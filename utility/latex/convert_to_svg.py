@@ -33,7 +33,7 @@ def latex_to_svg(question, output_file):
     # Process and render LaTeX part
     if len(lines) > 1 and lines[1].strip().startswith(r'\[') and lines[1].strip().endswith(r'\]'):
         latex_part = lines[1].strip()[2:-2]  # Remove \[ and \]
-        ax.text(0.5, 0.35, f'${latex_part}$', fontsize=24, va='center', ha='center', color='black', wrap=True)
+        ax.text(0.5, 0.3, f'${latex_part}$', fontsize=24, va='center', ha='center', color='black', wrap=True)
 
     # Save the figure as an SVG
     fig.savefig(output_file, format='svg', bbox_inches='tight', pad_inches=0.1)

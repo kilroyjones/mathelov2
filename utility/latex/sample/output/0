@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2024-07-17T20:40:15.072252</dc:date>
+    <dc:date>2024-07-18T15:03:59.456627</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -370,7 +370,7 @@ z
    </g>
    <g id="text_2">
     <!-- $ f'(x) = \frac{d}{dx}(3x^3 - 5x + 2) $ -->
-    <g transform="translate(97.44 122.028) scale(0.24 -0.24)">
+    <g transform="translate(97.44 130.344) scale(0.24 -0.24)">
      <defs>
       <path id="DejaVuSans-Oblique-66" d="M 3059 4863 
 L 2969 4384 

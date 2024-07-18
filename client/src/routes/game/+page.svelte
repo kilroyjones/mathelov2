@@ -3,6 +3,7 @@
 	import { onDestroy, onMount } from 'svelte';
 
 	// Component
+	import Icon from '@iconify/svelte';
 	import Playing from '$lib/components/game/Playing.svelte';
 
 	// Type
@@ -12,6 +13,7 @@
 	import { playStore, PlayState } from '$lib/stores/games/play.store';
 	import { socketStore } from '$lib/stores/games/websocket.store';
 	import Waiting from '$lib/components/game/Waiting.svelte';
+	import RightBar from '$lib/components/game/RightBar.svelte';
 
 	const focus = (element: HTMLInputElement) => element.focus();
 
@@ -94,23 +96,26 @@
 <div class="flex justify-center h-full min-h-screen p-4 rounded-lg md:p-2">
 	<div class="w-full grid lg:grid-cols-[2fr_3fr_2fr] md:grid-cols-[1fr_4fr_1fr] sm:grid-cols-1">
 		<div class="hidden p-4 sm:block"></div>
-		<div class="flex items-center justify-center">
+		<div class="flex flex-row items-center justify-center">
 			<Playing {question} {timer}></Playing>
 		</div>
 		<div class="hidden p-4 sm:block"></div>
 	</div>
 </div>
 
-<div class="fixed inset-x-0 bottom-0 p-4 shadow-inner bg-base-300">
+<div class="fixed inset-x-0 bottom-0 p-4 shadow-inner bg-base-200">
 	<div class="flex items-center justify-center max-w-4xl mx-auto space-x-4">
 		<input
 			type="text"
-			class="flex-grow max-w-lg std-input-field focus:ring-2"
-			placeholder="Enter your text..."
+			class="flex-grow max-w-lg text-xl font-bold std-input-field focus:ring-2"
+			placeholder="Enter your answer..."
 			bind:value={answer}
 			on:keyup={handleKeyUp}
 			use:focus
 		/>
-		<button class="px-6 py-2 std-input-button" on:click={handleSubmit}>Submit</button>
+
+		<button class="px-6 py-2 text-lg std-input-button" on:click={handleSubmit}>
+			<Icon icon="formkit:submit" />
+		</button>
 	</div>
 </div>

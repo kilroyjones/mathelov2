@@ -10,7 +10,7 @@
 	export let inGame: boolean = false;
 </script>
 
-<div class="navbar bg-base-300 {inGame ? 'fixed' : ''}">
+<div class="navbar bg-base-200 {inGame ? 'fixed' : ''}">
 	<div class="flex-1">
 		<a href="/" class="text-xl btn btn-ghost">Template</a>
 		<div class="flex-none">
