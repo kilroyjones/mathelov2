@@ -6,9 +6,17 @@ Currently, it only allows creating local users, retrieving questions, and submit
 
 ### What needs to be done
 
-- [ ] - Creating a messaging protocol for the game
-- [ ] - Develop a full-featured UI for game play
 - [ ] - Decide on a question format which allows for extensibility
+- [ ] - Creating a messaging protocol for the game
+- [ ] - Flow for creating SVG questions
+- [ ] - Dark mode for SVGs
+- [ ] - Better dark mode setttings (container colors are too dark)
+- [ ] - Collapsible responsive navbar
+
+### Completed
+
+- [x] - Develop a UI prototype for game play
+    > Initial game UI is completed, though it is not connected at the moment
 
 ### Setup
 

@@ -12,13 +12,14 @@
 	// Variables
 	import { playStore, PlayState } from '$lib/stores/games/play.store';
 	import { socketStore } from '$lib/stores/games/websocket.store';
+	import Complete from '$lib/components/game/Complete.svelte';
 	import Waiting from '$lib/components/game/Waiting.svelte';
 	import RightBar from '$lib/components/game/RightBar.svelte';
 
 	const focus = (element: HTMLInputElement) => element.focus();
 
 	// Question
-	let question: string = '8 + 2';
+	let question: string = 'demo/question.svg';
 	let timer: number;
 	let answer: string;
 
@@ -98,6 +99,7 @@
 		<div class="hidden p-4 sm:block"></div>
 		<div class="flex flex-row items-center justify-center">
 			<Playing {question} {timer}></Playing>
+			<!-- <Complete {question}></Complete> -->
 		</div>
 		<div class="hidden p-4 sm:block"></div>
 	</div>
@@ -115,7 +117,7 @@
 		/>
 
 		<button class="px-6 py-2 text-lg std-input-button" on:click={handleSubmit}>
-			<Icon icon="formkit:submit" />
-		</button>
+			<Icon icon="formkit:submit" /></button
+		>
 	</div>
 </div>

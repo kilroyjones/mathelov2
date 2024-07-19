@@ -16,6 +16,6 @@
 	}
 
 	.std-input-button {
-		@apply rounded-md input btn focus:outline-none btn-primary;
+		@apply rounded-md btn focus:outline-none btn-primary;
 	}
 }

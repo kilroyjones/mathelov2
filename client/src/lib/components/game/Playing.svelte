@@ -2,18 +2,16 @@
 	import { onMount } from 'svelte';
 
 	// Types
-	import type { KeyboardEventHandler, MouseEventHandler } from 'svelte/elements';
+	import BottomBar from './BottomBar.svelte';
 	import RightBar from './RightBar.svelte';
 
 	// Variables
 	export let question: string;
 	export let timer: number = 200000;
 
-	let answer: string = '';
-
+	let percentRemaining: number;
 	let timeIncrement: number = 100;
 	let timeLeft: number;
-	let percentRemaining: number;
 
 	onMount(() => {
 		timeLeft = timer;
@@ -43,10 +41,11 @@
 				class="flex flex-row items-center justify-center w-full p-4 rounded-lg md:mb-0 bg-base-200 md:min-h-96 min-h-72"
 			>
 				<div class="flex items-center justify-center flex-grow flex-shrink-0 mb-4 basis-2/3">
-					<img src="demo/question.svg" alt="Question" />
+					<img src={question} alt="Question" />
 				</div>
 			</div>
 		</div>
+		<BottomBar></BottomBar>
 	</div>
 	<div class="pl-2 md:pt-12">
 		<RightBar></RightBar>
