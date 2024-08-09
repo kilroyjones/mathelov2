@@ -60,7 +60,16 @@ would probably have to calculate the answer.
 
 No. 
 
-A reasonably skilled person should be able to do every MathELO problem without a calculator.
+A reasonably skilled person should be able to do every MathELO problem without a calculator. Indeed,
+most problems should be solvable without pen and paper.
+
+Most Mathematics professors would not be able to calculate "calculate the product of 1311 and 357" 
+without a pen and paper. And
+if these professors were given a problem like this one when using the website, they would log off. 
+(The problem is tedious and boring.) Therefore we should avoid problems like that one.
+
+On the other hand, a problem like "calculate the product of 1001 and 999" is arguably ok because it 
+is an indirect way of testing whether the player knows about the difference of squares pattern. ( 1001 x 999 = (1000 + 1)(1000 - 1) = 1000^2 - 1 = 999999)
 
 ### Should We Include College Math Material?
 
@@ -77,6 +86,18 @@ example, do the Natural Numbers include zero? Textbooks disagree. Similarly, tex
 whether a square is a rectangle.
 
 The site will have to be consistent and open about these things.
+
+### Can you Copyright a Problem? (Can We Copy Problems?)
+
+As far as I can tell, most Mathematics problems cannot be copyrighted. You cannot copyright "2 x 5",
+nor can you copyright a question that asks you to calculate an integral.
+
+Word problems are likely a gray area.
+
+You cannot copy someone else's Geometry diagram and use it, but I imagine that you can create your
+own pbolem that contains an equivalent figure and asks the student to solve an equivalent problem. 
+(For example, Xeroxing the Pons Asinorum diagram from someone's Euclid Volume 1 would probably not 
+be okay, but recreating the Pons Asinorum diagram is probably fine.)
 
 ## Problems: By Answer Type
 
